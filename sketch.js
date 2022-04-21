@@ -121,6 +121,9 @@ function draw() {
   strokeWeight(1);
 
   textAlign(LEFT, CENTER);
+  textSize(24);
+  textBillboard("F1", graph_x+graph_w + 35, graph_y+graph_h/2, 0);
+  textSize(12);
   for (let f1 = floor(min_f1/100)*100; f1 <= max_f1; f1 += 100) {
     let y = f1ToY(f1);
     stroke(220);
@@ -131,6 +134,9 @@ function draw() {
   }
 
   textAlign(CENTER, BOTTOM);
+  textSize(24);
+  textBillboard("F2", graph_x+graph_w/2, graph_y - 25, 0);
+  textSize(12);
   for (let f2 = floor(min_f2/200)*200; f2 <= max_f2; f2 += 200) {
     let x = f2ToX(f2);
     stroke(220);
