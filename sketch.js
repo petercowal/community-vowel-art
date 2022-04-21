@@ -21,8 +21,11 @@ let max_f1 = 1200;
 let min_f2 = 400;
 let max_f2 = 4000;
 
+let dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSnOraVoa-9a6xFpnXOPeXNJzsoT-3G8o6SWWhiKcfPOQPEkMWoihaGpFomNVxMcSgQr1MpHZrKAyfU/pub?output=csv';
+
 function preload() {
-  formantTable = loadTable('data/formants.csv', 'csv', 'header');
+  //formantTable = loadTable('data/formants.csv', 'csv', 'header');
+  formantTable = loadTable(dataURL, 'csv', 'header');
   displayFont = loadFont('assets/Inconsolata-Regular.ttf');
 }
 
