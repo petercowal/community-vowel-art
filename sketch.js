@@ -55,8 +55,21 @@ function f2ToX(f2) {
 }
 
 function f0ToZ(f0) {
-
   return graph_zscale * log(f0/60);
+}
+
+
+function faceCamera() {
+  rotateZ(-graph_rotateZ);
+  rotateX(-graph_rotateX);
+}
+
+function textBillboard(str, x, y, z) {
+  push();
+  translate(x, y, z);
+  faceCamera();
+  text(str, 0, 0);
+  pop();
 }
 
 function drawDataPoint(f1, f2, f0, c) {
@@ -75,9 +88,6 @@ function drawDataPoint(f1, f2, f0, c) {
   fill(220);
   noStroke();
   circle(x, y, 20);
-
-
-
 
   translate(x, y, z);
   fill(c);
@@ -117,7 +127,7 @@ function draw() {
     line(graph_x, y, graph_x + graph_w, y);
     noStroke();
     fill(180);
-    text(f1, graph_x+graph_w + 5, y);
+    textBillboard(f1, graph_x+graph_w + 5, y, 0);
   }
 
   textAlign(CENTER, BOTTOM);
@@ -127,7 +137,9 @@ function draw() {
     line(x, graph_y, x, graph_y + graph_h);
     noStroke();
     fill(180);
-    text(f2, x, graph_y - 5);
+
+
+    textBillboard(f2, x, graph_y - 5, 0);
   }
 
   for (let i = 0; i < formantTable.getRowCount(); i++) {
