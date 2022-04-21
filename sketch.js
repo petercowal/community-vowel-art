@@ -23,6 +23,8 @@ let max_f2 = 4000;
 
 let dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSs-Nfph3eUH_p_5BJIgmVQDncx2loMbcZpCQ3v64CAkrXX-XnTEpaTQk74rUfHvxKRswmy0mziMRq9/pub?output=csv';
 
+// real link: https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSSs1ajnRZnmPcX58spNmN1v8zeM5VQxkm4AjwIPSU-9KNAVicU_HaKU0T0bIBbwu/pub?output=csv
+
 function preload() {
   //formantTable = loadTable('data/formants.csv', 'csv', 'header');
   formantTable = loadTable(dataURL, 'csv', 'header');
