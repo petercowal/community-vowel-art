@@ -21,9 +21,7 @@ let max_f1 = 1200;
 let min_f2 = 400;
 let max_f2 = 4000;
 
-let dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSs-Nfph3eUH_p_5BJIgmVQDncx2loMbcZpCQ3v64CAkrXX-XnTEpaTQk74rUfHvxKRswmy0mziMRq9/pub?output=csv';
-
-// real link: https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSSs1ajnRZnmPcX58spNmN1v8zeM5VQxkm4AjwIPSU-9KNAVicU_HaKU0T0bIBbwu/pub?output=csv
+let dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSSs1ajnRZnmPcX58spNmN1v8zeM5VQxkm4AjwIPSU-9KNAVicU_HaKU0T0bIBbwu/pub?output=csv';
 
 function preload() {
   //formantTable = loadTable('data/formants.csv', 'csv', 'header');
@@ -152,7 +150,7 @@ function draw() {
 
   for (let i = 0; i < formantTable.getRowCount(); i++) {
     drawDataPoint(formantTable.getNum(i, 1), formantTable.getNum(i, 2), formantTable.getNum(i, 3), c_green);
-    drawDataPoint(formantTable.getNum(i, 4), formantTable.getNum(i, 5), formantTable.getNum(i, 6), c_aqua);
-    drawDataPoint(formantTable.getNum(i, 7), formantTable.getNum(i, 8), formantTable.getNum(i, 9), c_blue);
+    drawDataPoint(formantTable.getNum(i, 4), formantTable.getNum(i, 5), formantTable.getNum(i, 6), c_blue);
+    drawDataPoint(formantTable.getNum(i, 7), formantTable.getNum(i, 8), formantTable.getNum(i, 9), c_aqua);
   }
 }
