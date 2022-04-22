@@ -44,7 +44,33 @@ function setup() {
 
   print(formantTable.getRowCount() + ' total rows in table');
   print(formantTable.getColumnCount() + ' total columns in table');
+
+  // set bounds for data display
+  min_f1 = 500;
+  max_f1 = 600;
+  min_f2 = 2000;
+  max_f2 = 2200;
+  for (let i = 0; i < formantTable.getRowCount(); i++) {
+    adjustF1bounds(formantTable.getNum(i, 1));
+    adjustF1bounds(formantTable.getNum(i, 4));
+    adjustF1bounds(formantTable.getNum(i, 7));
+
+    adjustF2bounds(formantTable.getNum(i, 2));
+    adjustF2bounds(formantTable.getNum(i, 5));
+    adjustF2bounds(formantTable.getNum(i, 8));
+  }
 }
+
+function adjustF1bounds(f1) {
+    min_f1 = min(min_f1, 100*floor(f1/100));
+    max_f1 = max(max_f1, 100*ceil(f1/100));
+}
+
+function adjustF2bounds(f2) {
+    min_f2 = min(min_f2, 200*floor(f2/200));
+    max_f2 = max(max_f2, 200*ceil(f2/200));
+}
+
 
 function f1ToY(f1) {
   return graph_y + graph_h * log(f1/min_f1)/log(max_f1/min_f1);
@@ -72,7 +98,7 @@ function textBillboard(str, x, y, z) {
   pop();
 }
 
-function drawDataPoint(f1, f2, f0, c) {
+function drawDataPoint(f1, f2, f0, c, size) {
 
   let x = f2ToX(f2);
   let y = f1ToY(f1);
@@ -91,7 +117,7 @@ function drawDataPoint(f1, f2, f0, c) {
 
   translate(x, y, z);
   fill(c);
-  sphere(10,8,8);
+  sphere(size,8,8);
   pop();
 }
 
@@ -149,8 +175,8 @@ function draw() {
   }
 
   for (let i = 0; i < formantTable.getRowCount(); i++) {
-    drawDataPoint(formantTable.getNum(i, 1), formantTable.getNum(i, 2), formantTable.getNum(i, 3), c_green);
-    drawDataPoint(formantTable.getNum(i, 4), formantTable.getNum(i, 5), formantTable.getNum(i, 6), c_blue);
-    drawDataPoint(formantTable.getNum(i, 7), formantTable.getNum(i, 8), formantTable.getNum(i, 9), c_aqua);
+    drawDataPoint(formantTable.getNum(i, 1), formantTable.getNum(i, 2), formantTable.getNum(i, 3), c_green, 5);
+    drawDataPoint(formantTable.getNum(i, 4), formantTable.getNum(i, 5), formantTable.getNum(i, 6), c_blue, 5);
+    drawDataPoint(formantTable.getNum(i, 7), formantTable.getNum(i, 8), formantTable.getNum(i, 9), c_aqua, 5);
   }
 }
