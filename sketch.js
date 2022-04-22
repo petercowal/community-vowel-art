@@ -62,11 +62,13 @@ function setup() {
 }
 
 function adjustF1bounds(f1) {
+    f1 = max(f1, 100);
     min_f1 = min(min_f1, 100*floor(f1/100));
     max_f1 = max(max_f1, 100*ceil(f1/100));
 }
 
 function adjustF2bounds(f2) {
+    f2 = max(f2, 200);
     min_f2 = min(min_f2, 200*floor(f2/200));
     max_f2 = max(max_f2, 200*ceil(f2/200));
 }
