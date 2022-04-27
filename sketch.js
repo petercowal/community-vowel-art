@@ -30,7 +30,7 @@ let dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSS
 function preload() {
   //formantTable = loadTable('data/formants.csv', 'csv', 'header');
   formantTable = loadTable(dataURL, 'csv', 'header');
-  displayFont = loadFont('assets/Inconsolata-Regular.ttf');
+  displayFont = loadFont('assets/Questrial-Regular.ttf');
 }
 
 function setup() {
