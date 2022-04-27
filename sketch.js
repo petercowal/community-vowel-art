@@ -3,6 +3,7 @@ let displayFont;
 
 let checkbox3D;
 
+let c_green, c_green_transparent, c_aqua, c_aqua_transparent, c_blue, c_blue_transparent;
 
 let graph_x = -500;
 let graph_y = -250;
@@ -38,9 +39,12 @@ function setup() {
 
   textFont(displayFont);
 
-  c_green = color(50, 200, 10);
-  c_aqua = color(10,240,170);
-  c_blue = color(10,150,250);
+  c_green = color(50, 255, 10);
+  c_green_transparent = color(80, 255, 40, 128);
+  c_aqua = color(10,255,170);
+  c_aqua_transparent = color(40, 255, 200, 128);
+  c_blue = color(10,150,255);
+  c_blue_transparent = color(40, 180, 255, 128);
 
 
   checkbox3D = createCheckbox('3D View', false);
@@ -64,6 +68,16 @@ function setup() {
     adjustF2bounds(formantTable.getNum(i, 8));
   }
 }
+
+function findColumnAverage(table, col) {
+    let count = table.getRowCount();
+    let sum = 0;
+    for (let i = 0; i < count; i++) {
+      sum += table.getNum(i, col);
+    }
+    return sum/count;
+}
+
 
 function adjustF1bounds(f1) {
     f1 = max(f1, 100);
@@ -110,9 +124,6 @@ function drawDataPoint(f1, f2, f0, vowel, size) {
   let y = f1ToY(f1);
   let z = f0ToZ(f0);
 
-
-
-
   push();
   noFill();
   stroke(100);
@@ -138,7 +149,7 @@ function drawDataPoint(f1, f2, f0, vowel, size) {
 }
 
 function draw() {
-  background(20);
+  background(40);
 
 
   let rotateX_target = 0;
@@ -161,7 +172,7 @@ function draw() {
   rotateZ(graph_rotateZ);
 
   strokeWeight(1.5);
-
+  fill(140);
   textAlign(LEFT, CENTER);
   textSize(24);
   textBillboard("F1", graph_x+graph_w + 35, graph_y+graph_h/2, 0);
@@ -171,7 +182,7 @@ function draw() {
     stroke(100);
     line(graph_x, y, graph_x + graph_w, y);
     noStroke();
-    fill(140);
+
     textBillboard(f1, graph_x+graph_w + 5, y, 0);
   }
 
@@ -184,7 +195,6 @@ function draw() {
     stroke(100);
     line(x, graph_y, x, graph_y + graph_h);
     noStroke();
-    fill(140);
     textBillboard(f2, x, graph_y - 5, 0);
   }
 
@@ -193,4 +203,15 @@ function draw() {
     drawDataPoint(formantTable.getNum(i, 4), formantTable.getNum(i, 5), formantTable.getNum(i, 6), VOWEL_U, 8);
     drawDataPoint(formantTable.getNum(i, 7), formantTable.getNum(i, 8), formantTable.getNum(i, 9), VOWEL_A, 8);
   }
+
+  textSize(50);
+  fill(c_green_transparent);
+  textBillboard("[i]", f2ToX(findColumnAverage(formantTable, 2)), f1ToY(findColumnAverage(formantTable, 1)), f0ToZ(findColumnAverage(formantTable, 3) + 100) + 1);
+  fill(c_blue_transparent);
+  textBillboard("[u]", f2ToX(findColumnAverage(formantTable, 5)), f1ToY(findColumnAverage(formantTable, 4)), f0ToZ(findColumnAverage(formantTable, 6) + 100) + 1);
+  fill(c_aqua_transparent);
+  textBillboard("[a]", f2ToX(findColumnAverage(formantTable, 8)), f1ToY(findColumnAverage(formantTable, 7)), f0ToZ(findColumnAverage(formantTable, 9) + 100) + 1);
+  //drawDataPoint(findColumnAverage(formantTable, 1), findColumnAverage(formantTable, 2),, VOWEL_I, 22);
+
+
 }
