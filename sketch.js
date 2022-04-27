@@ -21,6 +21,10 @@ let max_f1 = 1200;
 let min_f2 = 400;
 let max_f2 = 4000;
 
+let VOWEL_I = 1;
+let VOWEL_U = 2;
+let VOWEL_A = 3;
+
 let dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSSs1ajnRZnmPcX58spNmN1v8zeM5VQxkm4AjwIPSU-9KNAVicU_HaKU0T0bIBbwu/pub?output=csv';
 
 function preload() {
@@ -100,7 +104,7 @@ function textBillboard(str, x, y, z) {
   pop();
 }
 
-function drawDataPoint(f1, f2, f0, c, size) {
+function drawDataPoint(f1, f2, f0, vowel, size) {
 
   let x = f2ToX(f2);
   let y = f1ToY(f1);
@@ -108,23 +112,33 @@ function drawDataPoint(f1, f2, f0, c, size) {
 
 
 
-  push();
 
-  stroke(200);
+  push();
+  noFill();
+  stroke(100);
   line(x, y, 0, x, y, z);
 
-  fill(220);
-  noStroke();
-  circle(x, y, 20);
+  //fill(220);
+  //circle(x, y, 20);
 
   translate(x, y, z);
-  fill(c);
-  sphere(size,8,8);
+  faceCamera();
+
+  if (vowel == VOWEL_A) {
+    stroke(c_aqua);
+    square(-size/2, -size/2, size);
+  } else if (vowel == VOWEL_I) {
+    stroke(c_green);
+    triangle(-size/2, -size*0.29, size/2, -size*0.29, 0, size*0.58);
+  } else if (vowel == VOWEL_U) {
+    stroke(c_blue);
+    circle(0, 0, size);
+  }
   pop();
 }
 
 function draw() {
-  background(240);
+  background(20);
 
 
   let rotateX_target = 0;
@@ -146,7 +160,7 @@ function draw() {
   rotateX(graph_rotateX);
   rotateZ(graph_rotateZ);
 
-  strokeWeight(1);
+  strokeWeight(1.5);
 
   textAlign(LEFT, CENTER);
   textSize(24);
@@ -154,10 +168,10 @@ function draw() {
   textSize(12);
   for (let f1 = floor(min_f1/100)*100; f1 <= max_f1; f1 += 100) {
     let y = f1ToY(f1);
-    stroke(220);
+    stroke(100);
     line(graph_x, y, graph_x + graph_w, y);
     noStroke();
-    fill(180);
+    fill(140);
     textBillboard(f1, graph_x+graph_w + 5, y, 0);
   }
 
@@ -167,18 +181,16 @@ function draw() {
   textSize(12);
   for (let f2 = floor(min_f2/200)*200; f2 <= max_f2; f2 += 200) {
     let x = f2ToX(f2);
-    stroke(220);
+    stroke(100);
     line(x, graph_y, x, graph_y + graph_h);
     noStroke();
-    fill(180);
-
-
+    fill(140);
     textBillboard(f2, x, graph_y - 5, 0);
   }
 
   for (let i = 0; i < formantTable.getRowCount(); i++) {
-    drawDataPoint(formantTable.getNum(i, 1), formantTable.getNum(i, 2), formantTable.getNum(i, 3), c_green, 5);
-    drawDataPoint(formantTable.getNum(i, 4), formantTable.getNum(i, 5), formantTable.getNum(i, 6), c_blue, 5);
-    drawDataPoint(formantTable.getNum(i, 7), formantTable.getNum(i, 8), formantTable.getNum(i, 9), c_aqua, 5);
+    drawDataPoint(formantTable.getNum(i, 1), formantTable.getNum(i, 2), formantTable.getNum(i, 3), VOWEL_I, 8);
+    drawDataPoint(formantTable.getNum(i, 4), formantTable.getNum(i, 5), formantTable.getNum(i, 6), VOWEL_U, 8);
+    drawDataPoint(formantTable.getNum(i, 7), formantTable.getNum(i, 8), formantTable.getNum(i, 9), VOWEL_A, 8);
   }
 }
