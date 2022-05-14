@@ -35,7 +35,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1280, 720, WEBGL);
+  createCanvas(displayWidth, displayHeight, WEBGL);
 
   textFont(displayFont);
 
@@ -48,7 +48,7 @@ function setup() {
 
 
   checkbox3D = createCheckbox('3D View', false);
-
+  checkbox3D.position(0,0);
 
   print(formantTable.getRowCount() + ' total rows in table');
   print(formantTable.getColumnCount() + ' total columns in table');
