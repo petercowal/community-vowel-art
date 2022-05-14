@@ -1,7 +1,7 @@
 let formantTable;
 let displayFont;
 
-let checkbox3D;
+let checkbox3D, checkboxFullscreen;
 
 let c_green, c_green_transparent, c_aqua, c_aqua_transparent, c_blue, c_blue_transparent;
 
@@ -37,6 +37,12 @@ function preload() {
 function setup() {
   createCanvas(displayWidth, displayHeight, WEBGL);
 
+  graph_w = width-500;
+  graph_h = height-300;
+  graph_x = -graph_w/2;
+  graph_y = -graph_h/2;
+
+
   textFont(displayFont);
 
   c_green = color(50, 255, 10);
@@ -49,6 +55,10 @@ function setup() {
 
   checkbox3D = createCheckbox('3D View', false);
   checkbox3D.position(0,0);
+
+  checkboxFullscreen = createCheckbox('Fullscreen', false);
+  checkboxFullscreen.position(0, 16);
+  checkboxFullscreen.changed(toggleFullscreen);
 
   print(formantTable.getRowCount() + ' total rows in table');
   print(formantTable.getColumnCount() + ' total columns in table');
@@ -214,4 +224,8 @@ function draw() {
   //drawDataPoint(findColumnAverage(formantTable, 1), findColumnAverage(formantTable, 2),, VOWEL_I, 22);
 
 
+}
+
+function toggleFullscreen() {
+  fullscreen(checkboxFullscreen.checked());
 }
