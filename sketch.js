@@ -34,9 +34,16 @@ function preload() {
   displayFont = loadFont('assets/Questrial-Regular.ttf');
 }
 
-function setup() {
-  createCanvas(displayWidth, displayHeight, WEBGL);
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  graph_w = width*0.75;
+  graph_h = height*0.8;
+  graph_x = -graph_w/2;
+  graph_y = -graph_h/2;
+}
 
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
   graph_w = width-500;
   graph_h = height-300;
   graph_x = -graph_w/2;
