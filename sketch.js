@@ -22,15 +22,33 @@ let max_f1 = 1200;
 let min_f2 = 400;
 let max_f2 = 4000;
 
-let VOWEL_I = 1;
-let VOWEL_U = 2;
-let VOWEL_A = 3;
+const VOWEL_I = 1;
+const VOWEL_U = 2;
+const VOWEL_A = 3;
 
-let dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSSs1ajnRZnmPcX58spNmN1v8zeM5VQxkm4AjwIPSU-9KNAVicU_HaKU0T0bIBbwu/pub?output=csv';
+const dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSSs1ajnRZnmPcX58spNmN1v8zeM5VQxkm4AjwIPSU-9KNAVicU_HaKU0T0bIBbwu/pub?output=csv';
+const googleSheetURL = 'https://sheets.googleapis.com/v4/spreadsheets/1d9lbDIsLw6rhTJwtOdmujzTiBPexV9Nr_0qH4hdmLsw/values/Form%20Responses%201?key=AIzaSyBY-hngRiU7OoIeruB0WuIXycsE2ufbHa0';
+
+function loadGoogleSheetData(data) {
+  formantTable = new p5.Table();
+  header = data.values[0];
+  for (let i = 0; i < header.length; i++) {
+    formantTable.addColumn(header[i]);
+  }
+  for (let i = 1; i < data.values.length; i++) {
+    row = data.values[i];
+    formantTable.addRow();
+    for (let j = 0; j < row.length; j++) {
+      formantTable.set(i-1, j, row[j]);
+    }
+  }
+}
 
 function preload() {
   //formantTable = loadTable('data/formants.csv', 'csv', 'header');
-  formantTable = loadTable(dataURL, 'csv', 'header');
+  //formantTable = loadTable(dataURL, 'csv', 'header');
+  formantTable = new p5.Table();
+  loadJSON(googleSheetURL, loadGoogleSheetData);
   displayFont = loadFont('assets/Questrial-Regular.ttf');
 }
 
