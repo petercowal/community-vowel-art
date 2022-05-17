@@ -25,10 +25,12 @@ const VOWEL_I = 1;
 const VOWEL_U = 2;
 const VOWEL_A = 3;
 
-// view recent animation code
+// animation timer for "view recent" option
 let viewRecentTimer = 0;
 
-const dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSSs1ajnRZnmPcX58spNmN1v8zeM5VQxkm4AjwIPSU-9KNAVicU_HaKU0T0bIBbwu/pub?output=csv';
+//const dataURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQWknPGSkd4sGgjSSs1ajnRZnmPcX58spNmN1v8zeM5VQxkm4AjwIPSU-9KNAVicU_HaKU0T0bIBbwu/pub?output=csv';
+
+// don't worry, the embedded API key only works for this website
 const googleSheetURL = 'https://sheets.googleapis.com/v4/spreadsheets/1d9lbDIsLw6rhTJwtOdmujzTiBPexV9Nr_0qH4hdmLsw/values/Form%20Responses%201?key=AIzaSyBY-hngRiU7OoIeruB0WuIXycsE2ufbHa0';
 
 function loadGoogleSheetData(data) {
@@ -52,9 +54,7 @@ function smoothstep(x) {
   return 3*x*x - 2*x*x*x;
 }
 
-
 function preload() {
-  //formantTable = loadTable('data/formants.csv', 'csv', 'header');
   //formantTable = loadTable(dataURL, 'csv', 'header');
   formantTable = new p5.Table();
   loadJSON(googleSheetURL, loadGoogleSheetData);
@@ -84,7 +84,6 @@ function setup() {
   c_aqua_transparent = color(40, 255, 200, 128);
   c_blue = color(10,150,255);
   c_blue_transparent = color(40, 180, 255, 128);
-
 
   checkbox3D = createCheckbox('3D View', false);
   checkbox3D.position(5,25);
@@ -124,7 +123,6 @@ function findColumnAverage(table, col) {
     }
     return sum/count;
 }
-
 
 function adjustF1bounds(f1) {
     f1 = max(f1, 100);
@@ -179,7 +177,6 @@ function drawDataPoint(f1, f2, f0, vowel, size, solid) {
   } else {
     line(x, y, 0, x, y, z);
   }
-
 
   //fill(220);
   //circle(x, y, 20);
@@ -256,7 +253,6 @@ function draw() {
     textBillboard(f2, x, graph_y - 5, 0);
   }
 
-
   let n = formantTable.getRowCount()-1;
 
   let recentSolid = false;
@@ -273,7 +269,6 @@ function draw() {
   drawDataPoint(formantTable.getNum(n, 1), formantTable.getNum(n, 2), formantTable.getNum(n, 3), VOWEL_I, recentSize, recentSolid);
   drawDataPoint(formantTable.getNum(n, 4), formantTable.getNum(n, 5), formantTable.getNum(n, 6), VOWEL_U, recentSize, recentSolid);
   drawDataPoint(formantTable.getNum(n, 7), formantTable.getNum(n, 8), formantTable.getNum(n, 9), VOWEL_A, recentSize, recentSolid);
-
 
   if (!checkboxViewRecent.checked()) {
     for (let i = 0; i < formantTable.getRowCount()-1; i++) {
@@ -302,8 +297,6 @@ function draw() {
   textBillboard("[u]", f2ToX(findColumnAverage(formantTable, 5)), f1ToY(findColumnAverage(formantTable, 4)), f0ToZ(findColumnAverage(formantTable, 6) + 100) + 1);
   fill(c_aqua_transparent);
   textBillboard("[a]", f2ToX(findColumnAverage(formantTable, 8)), f1ToY(findColumnAverage(formantTable, 7)), f0ToZ(findColumnAverage(formantTable, 9) + 100) + 1);
-  //drawDataPoint(findColumnAverage(formantTable, 1), findColumnAverage(formantTable, 2),, VOWEL_I, 22);
-
 
   viewRecentTimer += deltaTime/1000;
 }
@@ -315,7 +308,6 @@ function highlightRecent() {
   }
   viewRecentTimer = 0;
 }
-
 
 function toggleFullscreen() {
   fullscreen(checkboxFullscreen.checked());
