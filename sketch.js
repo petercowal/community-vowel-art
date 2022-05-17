@@ -174,7 +174,12 @@ function drawDataPoint(f1, f2, f0, vowel, size, solid) {
   push();
   noFill();
   stroke(100);
-  line(x, y, 0, x, y, z);
+  if (solid) {
+    line(x, y, 0, x, y, z-2);
+  } else {
+    line(x, y, 0, x, y, z);
+  }
+
 
   //fill(220);
   //circle(x, y, 20);
