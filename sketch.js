@@ -210,7 +210,7 @@ function draw() {
 
   if(checkbox3D.checked()) {
     rotateX_target = PI/3;
-    graph_rotateZ += 0.0002*deltaTime;
+    graph_rotateZ += 0.0001*deltaTime;
     if (graph_rotateZ > PI) {
 
       graph_rotateZ -= 2*PI;
