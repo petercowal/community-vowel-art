@@ -44,8 +44,8 @@ function windowResized() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
-  graph_w = width-500;
-  graph_h = height-300;
+  graph_w = width*0.75;
+  graph_h = height*0.8;
   graph_x = -graph_w/2;
   graph_y = -graph_h/2;
 
